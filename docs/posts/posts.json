@@ -44,7 +44,7 @@
       "-dataviz"
     ],
     "preview": {},
-    "last_modified": "2019-03-06T11:03:38-08:00"
+    "last_modified": "2019-03-06T11:03:39-08:00"
   },
   {
     "path": "posts/welcome/",
@@ -52,13 +52,13 @@
     "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
     "author": [
       {
-        "name": "Nora Jones",
+        "name": "Karlena Ochoa",
         "url": "https://example.com/norajones"
       }
     ],
     "date": "2019-03-06",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-03-06T10:31:28-08:00"
+    "last_modified": "2019-03-06T11:05:54-08:00"
   }
 ]
