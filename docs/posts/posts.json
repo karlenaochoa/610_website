@@ -15,6 +15,36 @@
     "last_modified": "2019-03-06T10:51:30-08:00"
   },
   {
+    "path": "posts/2019-03-06-data-viz-2/",
+    "title": "Data Viz 2",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-03-06",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-03-06T10:54:32-08:00"
+  },
+  {
+    "path": "posts/2019-03-06-data-viz-3/",
+    "title": "Data Viz 3",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-03-06",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-03-06T10:57:21-08:00"
+  },
+  {
     "path": "posts/welcome/",
     "title": "Welcome to My Blog",
     "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
@@ -28,20 +58,5 @@
     "categories": [],
     "preview": {},
     "last_modified": "2019-03-06T10:31:28-08:00"
-  },
-  {
-    "path": "posts/2019-03-06-data-viz-2/",
-    "title": "Data Viz 2",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-03-06",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-03-06T10:54:31-08:00"
   }
 ]

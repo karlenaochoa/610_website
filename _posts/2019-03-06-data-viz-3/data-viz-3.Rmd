@@ -1,5 +1,5 @@
 ---
-title: "Data Viz 2"
+title: "Data Viz 3"
 description: |
   A short description of the post.
 author:
@@ -15,8 +15,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Trying a second post 
-
+This is the actual third viz. 
 
 Distill is a publication format for scientific and technical writing, native to the web.
 
