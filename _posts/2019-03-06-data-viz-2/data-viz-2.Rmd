@@ -1,7 +1,7 @@
 ---
 title: "Data Viz 2"
 description: |
-  A short description of the post.
+  Children's performance when they recieved first-hand information.
 author:
   - name: Karlena Ochoa 
     url: https://example.com/norajones
@@ -76,7 +76,7 @@ plot6 <- ggplot(df3, aes(trainingtotal, total_trust)) +
   labs(title= "Children's Performance on Training Trials Related \nto Total Trust of Reliable Informant", 
        subtitle = "", 
        x = "Training Total", y = "Trust Score" )
-#AAC: Awesome use of jitter! 
+plot6
 
 #color dots and regression line by age group 
 finalviz2 <- ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(agegroup.x))) +
@@ -107,7 +107,6 @@ finalviz2 + theme(axis.title.x = element_text(size=14),
 
 #Great use of annotations!
   
-#change colors, consider not using coord equal, find colors that are color blind safe and not ugly like the viridis ones 
 
 
 

@@ -1,7 +1,7 @@
 ---
 title: "data-viz-4"
 description: |
-  A short description of the post.
+  Trust of reliable informant across age.
 author:
   - name: Karlena Ochoa
     url: https://example.com/norajones

@@ -2,7 +2,7 @@
   {
     "path": "posts/2019-03-11-data-viz-4/",
     "title": "data-viz-4",
-    "description": "A short description of the post.",
+    "description": "Trust of reliable informant across age.",
     "author": [
       {
         "name": "Karlena Ochoa",
@@ -12,12 +12,12 @@
     "date": "2019-03-11",
     "categories": [],
     "preview": "posts/2019-03-11-data-viz-4/data-viz-4_files/figure-html5/unnamed-chunk-1-1.png",
-    "last_modified": "2019-03-11T17:20:30-07:00"
+    "last_modified": "2019-03-11T18:06:21-07:00"
   },
   {
     "path": "posts/2019-03-06-data-viz-1/",
     "title": "Data Viz 1",
-    "description": "A short description of the post.",
+    "description": "Examines young children's trust of reliable informant.",
     "author": [
       {
         "name": "Karlena Ochoa",
@@ -27,12 +27,12 @@
     "date": "2019-03-06",
     "categories": [],
     "preview": "posts/2019-03-06-data-viz-1/data-viz-1_files/figure-html5/viz 1-1.png",
-    "last_modified": "2019-03-11T17:04:35-07:00"
+    "last_modified": "2019-03-11T18:03:58-07:00"
   },
   {
     "path": "posts/2019-03-06-data-viz-2/",
     "title": "Data Viz 2",
-    "description": "A short description of the post.",
+    "description": "Children's performance when they recieved first-hand information.",
     "author": [
       {
         "name": "Karlena Ochoa",
@@ -42,7 +42,7 @@
     "date": "2019-03-06",
     "categories": [],
     "preview": "posts/2019-03-06-data-viz-2/data-viz-2_files/figure-html5/viz 2-1.png",
-    "last_modified": "2019-03-11T17:08:18-07:00"
+    "last_modified": "2019-03-11T18:04:49-07:00"
   },
   {
     "path": "posts/2019-03-06-data-viz-3/",

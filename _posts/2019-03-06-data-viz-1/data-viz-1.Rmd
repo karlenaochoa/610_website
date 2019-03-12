@@ -1,7 +1,7 @@
 ---
 title: "Data Viz 1"
 description: |
-  A short description of the post.
+  Examines young children's trust of reliable informant.
 author:
   - name: Karlena Ochoa 
     url: https://example.com/norajones
@@ -208,29 +208,45 @@ plot5 +
 
 #final viz 1
 
-lines <-data.frame(xval=c(3.43,3.32, 4.71, 3.96))
 
 finalviz1 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
   geom_point(alpha = 0.9, position = position_jitter(height = .2, width = .2)) +
   facet_wrap(~condition) +
   theme_minimal() +
   scale_color_OkabeIto() +
-    labs(title= "Only 4-year-olds trust the more reliable informant!", 
+    labs(title = "Only 4-year-olds trust the more reliable informant!", 
        subtitle = "Children's trust scores in a sticker-finding game", 
        x = "Age Group",
-       y = "Trust Score of Reliable Informant")
+       y = "Trust Score")
+
+finalviz1 + 
+  theme(axis.title.x = element_text(size = 14),
+           axis.text.x = element_text(size = 12),
+           axis.title.y = element_text(size = 14),
+           axis.text.y= element_text(size = 12),
+           plot.title = element_text(size = 15),
+           plot.subtitle = element_text(size = 14),
+           strip.text.x = element_text(size = 12),
+           legend.position = "none")
+
+#finalviz1 + geom_text(
+  #data = dat_text,
+  #mapping = aes(x = x, y = y, label = label))
+  
+  #annotate("text", label = "Mean = 3.43", x = .79, y = 3.43, size = 3)
 
  # geom_vline(aes(xintercept=xval), data=lines, colour="#990000", linetype="dashed")
 #To-do work on adding mean lines
-finalviz1 +
-  theme(axis.title.x = element_text(size=14),
-           axis.text.x= element_text(size=12),
-           axis.title.y = element_text(size=14),
-           axis.text.y= element_text(size=12),
-           plot.title = element_text(size=15),
-           plot.subtitle = element_text(size=14),
-           strip.text.x = element_text(size = 12),
-           legend.position = "none")
+
+  
+
+dat_text <- data.frame(
+  label = c("Mean = 3.43", "Mean = 3.32", "Mean = 4.71", "Mean = 3.96"),
+  age   = c(3, 3, 4, 4), 
+  condition = c(1, 2, 1, 2),
+  x = c(.75, 1, .75, 1),
+  y = c(3.42, 3.32, 4.71, 3.96))
+
 
 #changes for final viz 1 based on peer review- use OkabeIto scale and add bars for means in each group
 ```
