@@ -3,7 +3,7 @@ title: "Data Viz 1"
 description: |
   A short description of the post.
 author:
-  - name: Nora Jones
+  - name: Karlena Ochoa 
     url: https://example.com/norajones
 date: 03-06-2019
 output:
@@ -13,20 +13,227 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
 library(tidyverse)
+library(janitor)
+library(rio)
+library(magrittr)
+library(here)
+library(knitr)
+library(stats)
+library(gghighlight)
+library(showtext)
+library(ggthemes)
+library(grid)
+library(gganimate)
+library(ungeviz)
+library(gifski)
+library(colorblindr)
 ```
 
-Here's a basic figure- check it out!
+```{r import data}
 
-Distill is a publication format for scientific and technical writing, native to the web.
+df <- import(here("data", "BREIF_Data_100p_final_proj.csv"),
+             na.string = "999")
+             
+df2 <- import(here("data", "data_trust_final_proj.csv"),
+              na.string = "999")
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+# turn 999 into nas
 
-```{r plot 1}
-ggplot(mpg, aes(displ, cty)) +
-  geom_point(aes(color = drv)) +
-  geom_smooth() +
-  theme_minimal()
+#join data and select variables of interest 
+
+data <- left_join(df2, df, by = "subid") %>% 
+  select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
+  
+```
+Viz 1: Aimed at general community!
+
+Message: only 4-year-olds trust the reliable informant over the unreliable informant, even when 3-year-olds receive first-hand information they are equally choosing the reliable (helpful) and unreliable informant (tricky) in a sticker-finding task. 
+
+```{r viz 1}
+#mutate variables to factors and label, make average trust variable
+v1 <- data %>% 
+mutate(condition = as.factor(ifelse(condition == 1, "first-hand",     
+                                      "second-hand"))) %>%
+  mutate(gender = as.factor(ifelse(gender == 1, "male", "female"))) %>%
+  group_by(subid) %>%
+  mutate(average_trust = mean(total_trust))
+
+summary_p <- v1 %>%
+  group_by(agegroup.x, condition) %>%
+  summarise(n = n(),
+            average_trust = mean(total_trust),
+            sd_average_trust = sd(total_trust),
+            se_average_trust = sd_average_trust / (sqrt(n)))
+
+plot1 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust)) +
+  geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
+           alpha = .7) +
+    labs(title= "Children's Selective Trust of Helpful over Tricky informant", 
+       subtitle = "Separated by Condition and Age group", 
+       x = "Age Group", y = "Average Trust Score" ) +
+     geom_errorbar(aes(ymin = average_trust - 1.96*se_average_trust, 
+                       ymax = average_trust + 1.96*se_average_trust,
+                       group = condition),
+                  width=.2,                    
+                  position = position_dodge(width = 0.9)) +
+  theme_minimal() 
+
+plot1
+
+#AAC: Because is aimed at the general community rather than the scientific community, I feel like error bars might not be the best fit for this audience (and I see you eliminated them in the below visualizations :D)
+
+
+#improve plot by changing colors, make text bigger 
+
+plot2 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust)) +
+  geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
+           alpha = .6) +
+  ylim(c(0,6)) +
+    labs(title= "Children's Selective Trust of Helpful over Tricky informant", 
+       subtitle = "Separated by Condition and Age group", 
+       x = "Age Group", y = "Average Trust Score" ) +
+     geom_errorbar(aes(ymin = average_trust - 1.96*se_average_trust, 
+                       ymax = average_trust + 1.96*se_average_trust,
+                       group = condition),
+                  width=.2,                    
+                  position = position_dodge(width = 0.9)) +
+  theme_classic() +
+  scale_fill_OkabeIto()
+
+
+plot2 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=16),
+           plot.subtitle = element_text(size=14))
+#AAC: Love the improved colors. Because you used theme_classic instead of theme_minimal, and thus eliminated the gridlines in the background of this visualization, I think it might not be necessary to use alpha to make the bars transparent because there's nothing really to see behind them. And the color is probably nicer without the alpha
+
+#add annotations for group averages, make the title for the general public
+
+plot3 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust )) +
+  geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
+           alpha = .5) +
+  ylim(c(0,6)) +
+    labs(title= "Only 4-year-olds trust the more reliable informant!", 
+       subtitle = "", 
+       x = "Age Group", y = "Average Trust Score" ) +
+     geom_errorbar(aes(ymin = average_trust - 1.96*se_average_trust, 
+                       ymax = average_trust + 1.96*se_average_trust,
+                       group = condition),
+                  width=.1, 
+                  alpha = .5,
+                  color = "gray40",
+                  position = position_dodge(width = 0.9)) +
+  annotate("text", label = "3.43", x = .79, y = 3.43, fontface = "bold", size = 4) +
+  annotate("text", label = "3.32", x = 1.2, y = 3.32, fontface = "bold", size = 4) +
+  annotate("text", label = "4.71", x = 1.8, y = 4.71, fontface = "bold", size = 4) +
+  annotate("text", label = "3.96", x = 2.2, y = 3.96, fontface = "bold", size = 4) +
+  theme_classic() +
+  scale_fill_viridis_d(option = "cividis")
+
+
+plot3 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=16),
+           plot.subtitle = element_text(size=14))
+#AAC: Yeah, I can see how the error bars and annotations might be too much together. Go with your gut :D 
+
+# going to try to take off error bars so it's easier to see means. I tried putting them above the error bars but it looks odd. Let me know if it's not a good idea. 
+
+#decided error bars are too much especially for the general public
+
+plot4 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust )) +
+  geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
+           alpha = .5) +
+  ylim(c(0,6)) +
+    labs(title= "Only 4-year-olds trust the more reliable informant!", 
+       subtitle = "Children's selective trust in a sticker-finding game", 
+       x = "Age Group", y = "Average Trust Score of Reliable Informant" ) +
+  annotate("text", label = "3.43", x = .79, y = 3.61, size = 6) +
+  annotate("text", label = "3.32", x = 1.2, y = 3.5, size = 6) +
+  annotate("text", label = "4.71", x = 1.8, y = 4.9, size = 6) +
+  annotate("text", label = "3.96", x = 2.2, y = 4.1, size = 6) +
+  theme_classic() +
+  scale_fill_viridis_d(option = "cividis")
+
+plot4 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=18),
+           plot.subtitle = element_text(size=14))
+
+#AAC: I like the title and I think it's awesome for the general public! One thing you might consider is shortening the y axis title, capitalizing the "Condition" in the legend, and making it clear that the age groups are 3 and 4 years*. 
+
+# we hear so often that bar plots are so bad so here's an alternative that shows all the data. 
+v1 <- v1 %>% 
+  mutate(condition = recode(condition,
+                "first-hand" = "First-hand",
+                "second-hand" = "Second-hand"))
+
+#this will turn into final one. This was plot 3.1 but changed plot numbers so they are in a logical order
+plot5 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
+  geom_point(alpha = 0.9, position = position_jitter(height = .2, width = .2)) +
+  facet_wrap(~condition) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Accent") +
+    labs(title= "Only 4-year-olds trust the more reliable informant!", 
+       subtitle = "Children's trust scores in a sticker-finding game", 
+       x = "Age Group",
+       y = "Trust Score of Reliable Informant")
+
+plot5 +
+  theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14),
+           strip.text.x = element_text(size = 12),
+           legend.position = "none") 
+
+#I really like how you separated out your plot code from your theme edits like this. It made it really easy to understand!
+
+#AAC: I love this one! I always like looking at the raw data points more than summary statistics, and I really like jitter plots! Maybe you could add an annotation or a line on this plot marking the means for each group, which might help for comparisons? 
+
+#Also my go-to color is always the original viridis but that's just personal preference
+
+#I think the text is definitely big enough and I think that (minus perhaps the error bars) that this can be understood by a general audience. Awesome job! 
+
+#final viz 1
+
+lines <-data.frame(xval=c(3.43,3.32, 4.71, 3.96))
+
+finalviz1 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
+  geom_point(alpha = 0.9, position = position_jitter(height = .2, width = .2)) +
+  facet_wrap(~condition) +
+  theme_minimal() +
+  scale_color_OkabeIto() +
+    labs(title= "Only 4-year-olds trust the more reliable informant!", 
+       subtitle = "Children's trust scores in a sticker-finding game", 
+       x = "Age Group",
+       y = "Trust Score of Reliable Informant")
+
+ # geom_vline(aes(xintercept=xval), data=lines, colour="#990000", linetype="dashed")
+#To-do work on adding mean lines
+finalviz1 +
+  theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14),
+           strip.text.x = element_text(size = 12),
+           legend.position = "none")
+
+#changes for final viz 1 based on peer review- use OkabeIto scale and add bars for means in each group
+```
+
 
 ```
 
