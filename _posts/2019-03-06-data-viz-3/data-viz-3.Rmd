@@ -3,7 +3,7 @@ title: "Data Viz 3"
 description: |
   A short description of the post.
 author:
-  - name: Nora Jones
+  - name: Karlena Ochoa
     url: https://example.com/norajones
 date: 03-06-2019
 output:
@@ -17,9 +17,95 @@ categories:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-This is the actual third viz. 
+```{r load libraries }
 
-Distill is a publication format for scientific and technical writing, native to the web.
+library(tidyverse)
+library(janitor)
+library(rio)
+library(magrittr)
+library(here)
+library(knitr)
+library(stats)
+library(gghighlight)
+library(showtext)
+library(ggthemes)
+library(grid)
+library(gganimate)
+library(ungeviz)
+library(gifski)
+library(colorblindr)
+library(distill)
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+```
 
+
+```{r import data}
+
+df <- import(here("data", "BREIF_Data_100p_final_proj.csv"),
+             na.string = "999")
+             
+df2 <- import(here("data", "data_trust_final_proj.csv"),
+              na.string = "999")
+
+# turn 999 into nas
+
+#join data and select variables of interest 
+
+data <- left_join(df2, df, by = "subid") %>% 
+  select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
+  
+```
+
+
+Viz 3 - aimed at scientific community
+
+message: it seems that parents of 4-year-olds more accurately report on their 4-year-olds executive function (EF) performance. Parent reports of 3-year-olds EF seem to overestimate their performance. 
+```{r viz 3}
+
+#make data into long format
+df4 <- data %>%
+  gather(BRIEF_item, BRIEF_response, "BRIEF1":"BRIEF63") %>%
+  mutate(BRIEF_item = as.factor(parse_number(BRIEF_item))) %>%
+  mutate(BRIEF_response = as.numeric(BRIEF_response)) %>% 
+  group_by(subid) %>%  
+  mutate(child_EF = ((flanker_rs + dccs_rs)/2)) %>% 
+  mutate(parent_EF = sum(BRIEF_response)) %>% 
+  filter(!is.na(parent_EF)) %>% 
+  filter(!is.na(child_EF)) %>% 
+  mutate(parent_EF_RS = (63 - parent_EF)) %>% 
+  mutate(agegroup.x = recode(agegroup.x,
+                              "3" = "3-year-olds",
+                              "4" = "4-year-olds")) 
+#AAC:Great use of spread and tidying
+
+#checking for outliers for each variable 
+
+boxplot(df4$child_EF)
+boxplot(df4$parent_EF_RS)
+ggplot(df4, aes(child_EF, parent_EF_RS, group = agegroup.x)) + 
+  geom_boxplot()
+
+#my plan was to highlight outliers in the scatterplot, as you can see there are no outliers. may do something else! Suggestions to make it look fancier?
+
+#AAC: That would've been cool, bummer it didn't work out ): but also good that the data has no outliers :D 
+
+finalviz3 <- ggplot(df4, aes(child_EF, parent_EF_RS)) +
+  geom_point(size = 1.5, color = "gray40") +
+  geom_smooth(method = "lm") +
+  facet_wrap(~agegroup.x) +
+  theme_bw() + 
+  labs(title= "Children's Executive Function Score in Relation to Parent Report of Executive Function",
+       subtitle = "Relationship separated by age", 
+       x = "Children's Executive Function Score",
+       y = "Parent-Report of Executive Function" )
+
+finalviz3 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14),
+           strip.text.x = element_text(size = 12))
+
+#AAC: I really like the look of this faceted plot. Simple, but effective. My only question is that you said that "parents of 4-year-olds more accurately report on their 4-year-olds executive function (EF) performance. Parent reports of 3-year-olds EF seem to overestimate their performance", but despite this pattern, the linear models look kind of similar, despite having somewhat different intercepts, and seem to have similar slopes. I can see the relationship that you are talking about by looking at the scatterplot of points. Perhaps you could display this relationship as the average dfference between parent-reported scores and actual reported scores for the two age groups? Or highlight the specific details of the plot that display the relationship that you're talking about (also it could be that I just don't understand enough about stats :D )
+```

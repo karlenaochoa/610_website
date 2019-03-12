@@ -29,6 +29,7 @@ library(gganimate)
 library(ungeviz)
 library(gifski)
 library(colorblindr)
+library(distill)
 ```
 
 ```{r import data}

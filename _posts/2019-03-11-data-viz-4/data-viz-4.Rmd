@@ -1,0 +1,134 @@
+---
+title: "data-viz-4"
+description: |
+  A short description of the post.
+author:
+  - name: Karlena Ochoa
+    url: https://example.com/norajones
+date: 03-11-2019
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r load libraries }
+
+library(tidyverse)
+library(janitor)
+library(rio)
+library(magrittr)
+library(here)
+library(knitr)
+library(stats)
+library(gghighlight)
+library(showtext)
+library(ggthemes)
+library(grid)
+library(gganimate)
+library(ungeviz)
+library(gifski)
+library(colorblindr)
+library(distill)
+
+```
+
+
+```{r import data}
+
+df <- import(here("data", "BREIF_Data_100p_final_proj.csv"),
+             na.string = "999")
+             
+df2 <- import(here("data", "data_trust_final_proj.csv"),
+              na.string = "999")
+
+# turn 999 into nas
+
+#join data and select variables of interest 
+
+data <- left_join(df2, df, by = "subid") %>% 
+  select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
+  
+```
+
+Viz 4: aimed at scientific community 
+message: children's ability to trust a reliable informant over an unreliable informant seems to increase with age. 
+
+```{r}
+df5 <- df2 %>% 
+mutate(gender = recode(gender,
+                "0" = "Girls",
+                "1" = "Boys"))
+
+
+plot7 <- ggplot(df5, aes(exactage.x, total_trust)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~gender) +
+  geom_smooth(method = "lm") +
+  theme_bw() + #I like your experimentation with different themes
+  labs(title= "Children's Age in Relation to Trust of the Reliable Informant",
+       subtitle = "Separated by Gender", 
+       x = "Age in Months",
+       y = "Total Trust Score") 
+
+plot7 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14),
+           strip.text.x = element_text(size = 12),
+           panel.spacing.x = unit(1.5, "cm"))
+
+
+#AAC: Again, I really like the look of these faceted linear model plots! I'm a little confused why you highlighted the scores specifically above 1, but it may just be my unfamiliarity with your data. Making that more clear woluld help me better interpret the plot.
+```
+Stil trying to figure it out 
+
+#decided not to highlight after all- going to try hops
+#bsr <- bootstrapper(20, gender)
+
+finalviz4 <- ggplot(df5, aes(exactage.x, total_trust)) +
+  geom_point(alpha = 0.6) +
+    geom_point(data = bsr) +
+  facet_wrap(~gender) +
+   geom_smooth(data = bsr, method = "lm", fullrange = TRUE, se = FALSE) +
+  theme_bw() + 
+  labs(title= "Children's Age in Relation to Trust of the Reliable Informant",
+       subtitle = "Separated by Gender", 
+       x = "Age in Months",
+       y = "Total Trust Score") +
+  transition_states(.draw, 1, 1) + 
+  enter_fade() + exit_fade()
+
+finalviz4 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14),
+           strip.text.x = element_text(size = 12),
+           panel.spacing.x = unit(1.5, "cm"))
+
+
+
+#trying to figure out HOPS
+ggplot(df5, aes(exactage.x, total_trust)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~gender) +
+  stat_smooth(data = bsr,
+              geom = "line",
+              color = "#4375D3",
+              fullrange = TRUE) +
+  #transition_states(bsr,
+                    #transition_length = 0.5,
+                    #state_length = 0.5) +
+  theme_bw() + 
+  labs(title= "Children's Age in Relation to Trust of the Reliable Informant",
+       subtitle = "Separated by Gender", 
+       x = "Age in Months",
+       y = "Total Trust Score")
+
