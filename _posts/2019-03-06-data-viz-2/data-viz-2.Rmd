@@ -3,7 +3,7 @@ title: "Data Viz 2"
 description: |
   A short description of the post.
 author:
-  - name: Nora Jones
+  - name: Karlena Ochoa 
     url: https://example.com/norajones
 date: 03-06-2019
 output:
@@ -15,10 +15,102 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Trying a second post 
+```{r load libraries }
+
+library(tidyverse)
+library(janitor)
+library(rio)
+library(magrittr)
+library(here)
+library(knitr)
+library(stats)
+library(gghighlight)
+library(showtext)
+library(ggthemes)
+library(grid)
+library(gganimate)
+library(ungeviz)
+library(gifski)
+library(colorblindr)
+
+```
 
 
-Distill is a publication format for scientific and technical writing, native to the web.
+```{r import data}
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+df <- import(here("data", "BREIF_Data_100p_final_proj.csv"),
+             na.string = "999")
+             
+df2 <- import(here("data", "data_trust_final_proj.csv"),
+              na.string = "999")
+
+# turn 999 into nas
+
+#join data and select variables of interest 
+
+data <- left_join(df2, df, by = "subid") %>% 
+  select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
+  
+```
+
+Viz 2 - aimed at scientific community
+
+Message: it seems that there is a positive relationship between four-year-olds, who received first-hand information regarding informants' traits, performance on the training trials and trust of more reliable informant. This relationship does not seem evident for 3-year-olds.
+
+
+```{r viz 2, fig.width = 5, fig.height = 6}
+df3 <- df2 %>% 
+  filter(condition == "1") 
+
+#Let's make this sad scatter plot better
+
+ggplot(df3, aes(trainingtotal, total_trust)) +
+  geom_point()
+
+#theme minimal added jitter for overlapping points 
+plot6 <- ggplot(df3, aes(trainingtotal, total_trust)) +
+  geom_point(position = "jitter") +
+  geom_smooth(method = "lm", fullrange = TRUE) +
+  theme_minimal() +
+  labs(title= "Children's Performance on Training Trials Related \nto Total Trust of Reliable Informant", 
+       subtitle = "", 
+       x = "Training Total", y = "Trust Score" )
+#AAC: Awesome use of jitter! 
+
+#color dots and regression line by age group 
+finalviz2 <- ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(agegroup.x))) +
+  geom_point() +
+  geom_jitter(position = position_jitter(height = .6, width = 0)) +
+  geom_smooth(method = "lm", fullrange = TRUE, se = FALSE) +
+  scale_fill_brewer(palette = "Accent",
+                     name = "Age Group",
+                     breaks = c("3", "4"),
+                     labels = c("3-year-olds", "4-year-olds")) +
+  scale_color_OkabeIto() +
+  theme_minimal() +
+  labs(title= "Children's Performance on Training Trials Related to Total \nTrust of Reliable Informant", 
+       subtitle = "Relationship separated by age", 
+       x = "Training Total",
+       y = "Trust Score" ) +
+  annotate("text", label = "3-year-olds", x = 2.8, y = 3.1, size = 4.5) +
+  annotate("text", label = "4-year-olds", x = 2.8, y = 5.1, size = 4.5) +
+  guides(color = "none")
+
+
+finalviz2 + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14))
+
+#Great use of annotations!
+  
+#change colors, consider not using coord equal, find colors that are color blind safe and not ugly like the viridis ones 
+
+
+
+#AAC:Awesome! Great use of linear modeling, and I always like to see the underlying data points like you have. I also thought it was smart to not depiect the se in the linear model, because you are already displaying the data points and it might be too much going on. Are some of these points different sizes? That's a little bit confusing to me. I would also suggest changing the colors to one of the color blind palettes, just because these seem a little faint. Also, I'm curious why you set the size for this plot but not the previous plot. All super small comments, but overall I think the plot and audience are very appropriate! 
+
+```
 

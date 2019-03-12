@@ -20,14 +20,14 @@
     "description": "A short description of the post.",
     "author": [
       {
-        "name": "Nora Jones",
+        "name": "Karlena Ochoa",
         "url": "https://example.com/norajones"
       }
     ],
     "date": "2019-03-06",
     "categories": [],
-    "preview": {},
-    "last_modified": "2019-03-06T10:54:32-08:00"
+    "preview": "posts/2019-03-06-data-viz-2/data-viz-2_files/figure-html5/viz 2-1.png",
+    "last_modified": "2019-03-11T17:08:18-07:00"
   },
   {
     "path": "posts/2019-03-06-data-viz-3/",
