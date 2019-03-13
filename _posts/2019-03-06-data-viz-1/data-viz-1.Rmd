@@ -46,6 +46,8 @@ df2 <- import(here("data", "data_trust_final_proj.csv"),
 
 data <- left_join(df2, df, by = "subid") %>% 
   select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
+
+lm(age~trust)
   
 ```
 # Visualization 1: Aimed at the general community!

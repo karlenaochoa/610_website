@@ -1,7 +1,7 @@
 ---
 title: "Data Viz 2"
 description: |
-  Children's performance when they recieved first-hand information.
+  Children's performance in the trust task when they received first-hand information.
 author:
   - name: Karlena Ochoa 
     url: https://example.com/norajones
@@ -54,10 +54,13 @@ data <- left_join(df2, df, by = "subid") %>%
   
 ```
 
-Viz 2 - aimed at scientific community
+# Visualization 2: Aimed at the scientific community!
 
-Message: it seems that there is a positive relationship between four-year-olds, who received first-hand information regarding informants' traits, performance on the training trials and trust of more reliable informant. This relationship does not seem evident for 3-year-olds.
+Message: overall there is a positive relationship between children that received first-hand information regarding informants' traits and their performance on the training trials and trust of more reliable informant.
 
+## This is the first version of the visualization. 
+
+Clearly there is a lot of work to be done. 
 
 ```{r viz 2, fig.width = 5, fig.height = 6}
 df3 <- df2 %>% 
@@ -68,6 +71,13 @@ df3 <- df2 %>%
 ggplot(df3, aes(trainingtotal, total_trust)) +
   geom_point()
 
+```
+
+## This is the second version of the visualization. 
+
+For this version I added theme minimal and added jitter for overlapping points. I also decided to add a regression line with SE to model the relationship. 
+
+```{r plot 6}
 #theme minimal added jitter for overlapping points 
 plot6 <- ggplot(df3, aes(trainingtotal, total_trust)) +
   geom_point(position = "jitter") +
@@ -77,9 +87,16 @@ plot6 <- ggplot(df3, aes(trainingtotal, total_trust)) +
        subtitle = "", 
        x = "Training Total", y = "Trust Score" )
 plot6
+```
+
+## This is the third version of the visualization. 
+
+For this plot I thought it would be helpful to separate the regression lines by age since there is an age difference in trust scores. 
+
+```{r plot 6.1}
 
 #color dots and regression line by age group 
-finalviz2 <- ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(agegroup.x))) +
+ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(agegroup.x))) +
   geom_point() +
   geom_jitter(position = position_jitter(height = .6, width = 0)) +
   geom_smooth(method = "lm", fullrange = TRUE, se = FALSE) +
@@ -92,9 +109,35 @@ finalviz2 <- ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(ageg
   labs(title= "Children's Performance on Training Trials Related to Total \nTrust of Reliable Informant", 
        subtitle = "Relationship separated by age", 
        x = "Training Total",
+       y = "Trust Score" )
+
+```
+
+
+## This is the final version of the visualization. 
+
+For the final version of the plot I decided to try and reduce the cognitive load by annotating regression lines rather than using a legend. 
+
+
+```{r final plot}
+
+#add annotations and remove legend. Decided to remove subtitle, not needed (too much text) 
+
+finalviz2 <- ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(agegroup.x))) +
+  geom_point() +
+  geom_jitter(position = position_jitter(height = .6, width = 0)) +
+  geom_smooth(method = "lm", fullrange = TRUE, se = FALSE) +
+  scale_fill_brewer(palette = "Accent",
+                     name = "Age Group",
+                     breaks = c("3", "4"),
+                     labels = c("3-year-olds", "4-year-olds")) +
+  scale_color_OkabeIto() +
+  theme_minimal() +
+  labs(title= "Children's Performance on Training Trials \nRelated to Total Trust of Reliable Informant", 
+       x = "Training Total",
        y = "Trust Score" ) +
-  annotate("text", label = "3-year-olds", x = 2.8, y = 3.1, size = 4.5) +
-  annotate("text", label = "4-year-olds", x = 2.8, y = 5.1, size = 4.5) +
+  annotate("text", label = "3-year-olds", x = 2.8, y = 3.0, size = 4.5) +
+  annotate("text", label = "4-year-olds", x = 2.8, y = 5.0, size = 4.5) +
   guides(color = "none")
 
 
@@ -104,13 +147,6 @@ finalviz2 + theme(axis.title.x = element_text(size=14),
            axis.text.y= element_text(size=12),
            plot.title = element_text(size=15),
            plot.subtitle = element_text(size=14))
-
-#Great use of annotations!
-  
-
-
-
-#AAC:Awesome! Great use of linear modeling, and I always like to see the underlying data points like you have. I also thought it was smart to not depiect the se in the linear model, because you are already displaying the data points and it might be too much going on. Are some of these points different sizes? That's a little bit confusing to me. I would also suggest changing the colors to one of the color blind palettes, just because these seem a little faint. Also, I'm curious why you set the size for this plot but not the previous plot. All super small comments, but overall I think the plot and audience are very appropriate! 
 
 ```
 
