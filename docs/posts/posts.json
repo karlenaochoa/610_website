@@ -27,7 +27,7 @@
     "date": "2019-03-06",
     "categories": [],
     "preview": "posts/2019-03-06-data-viz-1/data-viz-1_files/figure-html5/viz 1-1.png",
-    "last_modified": "2019-03-13T10:32:02-07:00"
+    "last_modified": "2019-03-13T11:09:02-07:00"
   },
   {
     "path": "posts/2019-03-06-data-viz-2/",
@@ -47,7 +47,7 @@
   {
     "path": "posts/2019-03-06-data-viz-3/",
     "title": "Data Viz 3",
-    "description": "A short description of the post.",
+    "description": "Relationship between parent report of executive function and children's perfomance.",
     "author": [
       {
         "name": "Karlena Ochoa",
@@ -55,11 +55,9 @@
       }
     ],
     "date": "2019-03-06",
-    "categories": [
-      "-dataviz"
-    ],
+    "categories": [],
     "preview": "posts/2019-03-06-data-viz-3/data-viz-3_files/figure-html5/viz 3-1.png",
-    "last_modified": "2019-03-11T17:12:30-07:00"
+    "last_modified": "2019-03-13T10:40:33-07:00"
   },
   {
     "path": "posts/welcome/",

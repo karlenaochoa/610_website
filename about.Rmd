@@ -8,6 +8,6 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-The data to be used was collected in my lab (Developing Mind Lab at the University of Oregon) and the project was preregistered on OSF. The project examines children’s (3- and 4-year-olds) selective trust and cognitive functioning. 
+The data used for this presentation was collected in my lab (Developing Mind Lab at the University of Oregon) and the project was preregistered on OSF. The project examines children’s (3- and 4-year-olds) selective trust and cognitive functioning. 
 
 The purpose of this study was to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. A secondary aim was to look at preschool‐age children’s cognitive abilities in relation to their ability to selectively trust reliable informants over unreliable informants.

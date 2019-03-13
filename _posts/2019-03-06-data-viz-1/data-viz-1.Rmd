@@ -48,7 +48,7 @@ data <- left_join(df2, df, by = "subid") %>%
   select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
   
 ```
-Viz 1: Aimed at general community!
+Vizualization 1: Aimed at general community!
 
 Message: only 4-year-olds trust the reliable informant over the unreliable informant, even when 3-year-olds receive first-hand information they are equally choosing the reliable (helpful) and unreliable informant (tricky) in a sticker-finding task. 
 
@@ -154,13 +154,13 @@ plot4 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust )) +
   ylim(c(0,6)) +
     labs(title= "Only 4-year-olds trust the more reliable informant!", 
        subtitle = "Children's selective trust in a sticker-finding game", 
-       x = "Age Group", y = "Average Trust Score of Reliable Informant" ) +
-  annotate("text", label = "3.43", x = .79, y = 3.61, size = 6) +
-  annotate("text", label = "3.32", x = 1.2, y = 3.5, size = 6) +
-  annotate("text", label = "4.71", x = 1.8, y = 4.9, size = 6) +
-  annotate("text", label = "3.96", x = 2.2, y = 4.1, size = 6) +
+       x = "Age Group", y = "Average Trust Score" ) +
+  annotate("text", label = "3.43", x = .79, y = 3.61, size = 5) +
+  annotate("text", label = "3.32", x = 1.2, y = 3.5, size = 5) +
+  annotate("text", label = "4.71", x = 1.8, y = 4.9, size = 5) +
+  annotate("text", label = "3.96", x = 2.2, y = 4.1, size = 5) +
   theme_classic() +
-  scale_fill_viridis_d(option = "cividis")
+  scale_fill_OkabeIto()
 
 plot4 + theme(axis.title.x = element_text(size=14),
            axis.text.x= element_text(size=12),
@@ -175,9 +175,10 @@ plot4 + theme(axis.title.x = element_text(size=14),
 v1 <- v1 %>% 
   mutate(condition = recode(condition,
                 "first-hand" = "First-hand",
-                "second-hand" = "Second-hand"))
+                "second-hand" = "Second-hand")) 
 
 #this will turn into final one. This was plot 3.1 but changed plot numbers so they are in a logical order
+
 plot5 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
   geom_point(alpha = 0.9, position = position_jitter(height = .2, width = .2)) +
   facet_wrap(~condition) +
@@ -206,7 +207,10 @@ plot5 +
 
 #I think the text is definitely big enough and I think that (minus perhaps the error bars) that this can be understood by a general audience. Awesome job! 
 
-#final viz 1
+#final viz 1 for scientific community 
+v2 <- v1 %>%  group_by(agegroup.x, condition) %>%
+       summarise(n = n(),
+            average_trust = mean(total_trust))
 
 
 finalviz1 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
@@ -217,7 +221,9 @@ finalviz1 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.fact
     labs(title = "Only 4-year-olds trust the more reliable informant!", 
        subtitle = "Children's trust scores in a sticker-finding game", 
        x = "Age Group",
-       y = "Trust Score")
+       y = "Trust Score") +
+  stat_summary(aes(colour = average_trust), geom = "hpline", width = 0.3, size = .6)
+
 
 finalviz1 + 
   theme(axis.title.x = element_text(size = 14),
@@ -229,24 +235,9 @@ finalviz1 +
            strip.text.x = element_text(size = 12),
            legend.position = "none")
 
-#finalviz1 + geom_text(
-  #data = dat_text,
-  #mapping = aes(x = x, y = y, label = label))
-  
-  #annotate("text", label = "Mean = 3.43", x = .79, y = 3.43, size = 3)
-
- # geom_vline(aes(xintercept=xval), data=lines, colour="#990000", linetype="dashed")
-#To-do work on adding mean lines
-
-  
-
-dat_text <- data.frame(
-  label = c("Mean = 3.43", "Mean = 3.32", "Mean = 4.71", "Mean = 3.96"),
-  age   = c(3, 3, 4, 4), 
-  condition = c(1, 2, 1, 2),
-  x = c(.75, 1, .75, 1),
-  y = c(3.42, 3.32, 4.71, 3.96))
-
+v2 <- v1 %>%  group_by(agegroup.x, condition) %>%
+       summarise(n = n(),
+            average_trust = mean(total_trust))
 
 #changes for final viz 1 based on peer review- use OkabeIto scale and add bars for means in each group
 ```
