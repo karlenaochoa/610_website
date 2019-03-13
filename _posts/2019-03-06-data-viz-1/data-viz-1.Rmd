@@ -46,8 +46,6 @@ df2 <- import(here("data", "data_trust_final_proj.csv"),
 
 data <- left_join(df2, df, by = "subid") %>% 
   select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
-
-lm(age~trust)
   
 ```
 # Visualization 1: Aimed at the general community!
@@ -154,7 +152,7 @@ plot3 + theme(axis.title.x = element_text(size=14),
            plot.subtitle = element_text(size=14))
 ```
 
-## This is the final version of theplot for the general community.
+## This is the final version of the plot for the general community.
 
 For this one I decided to remove the error bars and keep the OkabeIto colors. 
 

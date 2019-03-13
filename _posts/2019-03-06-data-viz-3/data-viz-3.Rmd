@@ -54,10 +54,10 @@ data <- left_join(df2, df, by = "subid") %>%
   
 ```
 
+# Visualization 1: Aimed at the scientific community!
 
-Viz 3 - aimed at scientific community
+message: present parents' report of children's executive function (EF) performance and children's actually prefermonace on EF tasks by age. 
 
-message: it seems that parents of 4-year-olds more accurately report on their 4-year-olds executive function (EF) performance. Parent reports of 3-year-olds EF seem to overestimate their performance. 
 ```{r viz 3}
 
 #make data into long format
@@ -74,18 +74,55 @@ df4 <- data %>%
   mutate(agegroup.x = recode(agegroup.x,
                               "3" = "3-year-olds",
                               "4" = "4-year-olds")) 
-#AAC:Great use of spread and tidying
+```
 
-#checking for outliers for each variable 
+Examine variables of interest for outliers 
 
+Child EF
+```{r}
 boxplot(df4$child_EF)
+```
+
+Parent report of child EF 
+
+```{r}
 boxplot(df4$parent_EF_RS)
+```
+
+Parent report EF and child EF
+
+```{r}
 ggplot(df4, aes(child_EF, parent_EF_RS, group = agegroup.x)) + 
   geom_boxplot()
+```
 
-#my plan was to highlight outliers in the scatterplot, as you can see there are no outliers. may do something else! Suggestions to make it look fancier?
+# This is the first version of the visualization.
 
-#AAC: That would've been cool, bummer it didn't work out ): but also good that the data has no outliers :D 
+My plan was to highlight the outliers in the plot, but there were no outliers. I added titles and axes labels and increased size of labels. I decided to add a regression line and try out a new theme. 
+
+```{r}
+plot <- ggplot(df4, aes(child_EF, parent_EF_RS)) +
+  geom_point(size = 1.5, color = "gray40") +
+  geom_smooth(method = "lm") +
+  theme_bw() + 
+  labs(title= "Children's Executive Function Score in \nRelation to Parent Report of Executive Function",
+       x = "Children's Executive Function Score",
+       y = "Parent-Report of Executive Function" )
+
+plot + theme(axis.title.x = element_text(size=14),
+           axis.text.x= element_text(size=12),
+           axis.title.y = element_text(size=14),
+           axis.text.y= element_text(size=12),
+           plot.title = element_text(size=15),
+           plot.subtitle = element_text(size=14),
+           strip.text.x = element_text(size = 12))
+```
+
+## This is the final plot for the scientific community. 
+
+I decided to facet the plot by age group rather than color by age like in my first visualization. I decided to keep the SE on the regression line because I believe it shows that there is more uncertainty for 3-year-olds. 
+
+```{r}
 
 finalviz3 <- ggplot(df4, aes(child_EF, parent_EF_RS)) +
   geom_point(size = 1.5, color = "gray40") +
@@ -104,6 +141,4 @@ finalviz3 + theme(axis.title.x = element_text(size=14),
            plot.title = element_text(size=15),
            plot.subtitle = element_text(size=14),
            strip.text.x = element_text(size = 12))
-
-#AAC: I really like the look of this faceted plot. Simple, but effective. My only question is that you said that "parents of 4-year-olds more accurately report on their 4-year-olds executive function (EF) performance. Parent reports of 3-year-olds EF seem to overestimate their performance", but despite this pattern, the linear models look kind of similar, despite having somewhat different intercepts, and seem to have similar slopes. I can see the relationship that you are talking about by looking at the scatterplot of points. Perhaps you could display this relationship as the average dfference between parent-reported scores and actual reported scores for the two age groups? Or highlight the specific details of the plot that display the relationship that you're talking about (also it could be that I just don't understand enough about stats :D )
 ```
