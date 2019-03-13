@@ -5,7 +5,7 @@ description: |
 author:
   - name: Karlena Ochoa 
     url: https://example.com/norajones
-date: 03-06-2019
+date: 03-13-2019
 output:
   distill::distill_article:
     self_contained: false
@@ -48,9 +48,11 @@ data <- left_join(df2, df, by = "subid") %>%
   select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
   
 ```
-Vizualization 1: Aimed at general community!
+Visualization 1: Aimed at general community!
 
 Message: only 4-year-olds trust the reliable informant over the unreliable informant, even when 3-year-olds receive first-hand information they are equally choosing the reliable (helpful) and unreliable informant (tricky) in a sticker-finding task. 
+
+This is the first version of the visualization. 
 
 ```{r viz 1}
 #mutate variables to factors and label, make average trust variable
@@ -88,6 +90,11 @@ plot1
 
 #improve plot by changing colors, make text bigger 
 
+```
+
+For this version I changed the colors and increased font size for labels and axes. 
+
+```{r viz 2}
 plot2 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust)) +
   geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
            alpha = .6) +
@@ -114,6 +121,11 @@ plot2 + theme(axis.title.x = element_text(size=14),
 
 #add annotations for group averages, make the title for the general public
 
+```
+
+For this version I tried adding annotations of the mean and tried out a different color. It's too much. 
+
+```{r viz 3}
 plot3 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust )) +
   geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
            alpha = .5) +
@@ -147,7 +159,12 @@ plot3 + theme(axis.title.x = element_text(size=14),
 # going to try to take off error bars so it's easier to see means. I tried putting them above the error bars but it looks odd. Let me know if it's not a good idea. 
 
 #decided error bars are too much especially for the general public
+```
 
+
+For this one I decided to remove the error bars and keep the OkabeIto colors. 
+
+```{r viz 4}
 plot4 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust )) +
   geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
            alpha = .5) +
@@ -179,6 +196,11 @@ v1 <- v1 %>%
 
 #this will turn into final one. This was plot 3.1 but changed plot numbers so they are in a logical order
 
+```
+
+I thought the above plot would be good for the general public but I wanted to see the individual points to show uncertainty. 
+
+```{r viz 5}
 plot5 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
   geom_point(alpha = 0.9, position = position_jitter(height = .2, width = .2)) +
   facet_wrap(~condition) +
@@ -207,7 +229,11 @@ plot5 +
 
 #I think the text is definitely big enough and I think that (minus perhaps the error bars) that this can be understood by a general audience. Awesome job! 
 
-#final viz 1 for scientific community 
+```
+
+I decided the pastel colors were too light and wanted to show the mean for the group with the individual points. 
+
+```{r viz for scientific community}
 v2 <- v1 %>%  group_by(agegroup.x, condition) %>%
        summarise(n = n(),
             average_trust = mean(total_trust))
