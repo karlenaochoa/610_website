@@ -48,11 +48,11 @@ data <- left_join(df2, df, by = "subid") %>%
   select(1, 4:7, 12:23, 25:28, 33:44, 56:73, 81:143)
   
 ```
-Visualization 1: Aimed at general community!
+# Visualization 1: Aimed at the general community!
 
 Message: only 4-year-olds trust the reliable informant over the unreliable informant, even when 3-year-olds receive first-hand information they are equally choosing the reliable (helpful) and unreliable informant (tricky) in a sticker-finding task. 
 
-This is the first version of the visualization. 
+## This is the first version of the visualization. 
 
 ```{r viz 1}
 #mutate variables to factors and label, make average trust variable
@@ -85,12 +85,9 @@ plot1 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust)) +
 
 plot1
 
-#AAC: Because is aimed at the general community rather than the scientific community, I feel like error bars might not be the best fit for this audience (and I see you eliminated them in the below visualizations :D)
-
-
-#improve plot by changing colors, make text bigger 
-
 ```
+
+## This is the second version of the visualization.
 
 For this version I changed the colors and increased font size for labels and axes. 
 
@@ -117,11 +114,10 @@ plot2 + theme(axis.title.x = element_text(size=14),
            axis.text.y= element_text(size=12),
            plot.title = element_text(size=16),
            plot.subtitle = element_text(size=14))
-#AAC: Love the improved colors. Because you used theme_classic instead of theme_minimal, and thus eliminated the gridlines in the background of this visualization, I think it might not be necessary to use alpha to make the bars transparent because there's nothing really to see behind them. And the color is probably nicer without the alpha
-
-#add annotations for group averages, make the title for the general public
 
 ```
+
+## This is the third version of the visualization.
 
 For this version I tried adding annotations of the mean and tried out a different color. It's too much. 
 
@@ -154,13 +150,9 @@ plot3 + theme(axis.title.x = element_text(size=14),
            axis.text.y= element_text(size=12),
            plot.title = element_text(size=16),
            plot.subtitle = element_text(size=14))
-#AAC: Yeah, I can see how the error bars and annotations might be too much together. Go with your gut :D 
-
-# going to try to take off error bars so it's easier to see means. I tried putting them above the error bars but it looks odd. Let me know if it's not a good idea. 
-
-#decided error bars are too much especially for the general public
 ```
 
+## This is the final version of theplot for the general community.
 
 For this one I decided to remove the error bars and keep the OkabeIto colors. 
 
@@ -175,7 +167,7 @@ plot4 <- ggplot(summary_p, aes(as.factor(agegroup.x), average_trust )) +
   annotate("text", label = "3.43", x = .79, y = 3.61, size = 5) +
   annotate("text", label = "3.32", x = 1.2, y = 3.5, size = 5) +
   annotate("text", label = "4.71", x = 1.8, y = 4.9, size = 5) +
-  annotate("text", label = "3.96", x = 2.2, y = 4.1, size = 5) +
+  annotate("text", label = "3.96", x = 2.2, y = 4.2, size = 5) +
   theme_classic() +
   scale_fill_OkabeIto()
 
@@ -184,21 +176,19 @@ plot4 + theme(axis.title.x = element_text(size=14),
            axis.title.y = element_text(size=14),
            axis.text.y= element_text(size=12),
            plot.title = element_text(size=18),
-           plot.subtitle = element_text(size=14))
+           plot.subtitle = element_text(size=14)) +
+    guides(fill = guide_legend(title = "Condition"))
 
-#AAC: I like the title and I think it's awesome for the general public! One thing you might consider is shortening the y axis title, capitalizing the "Condition" in the legend, and making it clear that the age groups are 3 and 4 years*. 
-
-# we hear so often that bar plots are so bad so here's an alternative that shows all the data. 
 v1 <- v1 %>% 
   mutate(condition = recode(condition,
                 "first-hand" = "First-hand",
                 "second-hand" = "Second-hand")) 
 
-#this will turn into final one. This was plot 3.1 but changed plot numbers so they are in a logical order
-
 ```
 
-I thought the above plot would be good for the general public but I wanted to see the individual points to show uncertainty. 
+## This is the first version for scientific community.
+
+I thought the above plot would be good for the general public but I wanted to see the individual points to show uncertainty. I don't think this plot would be good for the general community so I made a rendition for the scientific community. 
 
 ```{r viz 5}
 plot5 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.factor(agegroup.x)))) +
@@ -220,18 +210,11 @@ plot5 +
            plot.subtitle = element_text(size=14),
            strip.text.x = element_text(size = 12),
            legend.position = "none") 
-
-#I really like how you separated out your plot code from your theme edits like this. It made it really easy to understand!
-
-#AAC: I love this one! I always like looking at the raw data points more than summary statistics, and I really like jitter plots! Maybe you could add an annotation or a line on this plot marking the means for each group, which might help for comparisons? 
-
-#Also my go-to color is always the original viridis but that's just personal preference
-
-#I think the text is definitely big enough and I think that (minus perhaps the error bars) that this can be understood by a general audience. Awesome job! 
-
 ```
 
-I decided the pastel colors were too light and wanted to show the mean for the group with the individual points. 
+## This is the final plot for the scientific community. 
+
+I decided the pastel colors were too light and wanted to show the mean line for the group with the individual points. 
 
 ```{r viz for scientific community}
 v2 <- v1 %>%  group_by(agegroup.x, condition) %>%
@@ -247,7 +230,8 @@ finalviz1 <- ggplot(v1, aes(as.factor(agegroup.x), total_trust, color = (as.fact
     labs(title = "Only 4-year-olds trust the more reliable informant!", 
        subtitle = "Children's trust scores in a sticker-finding game", 
        x = "Age Group",
-       y = "Trust Score") +
+       y = "Trust Score",
+       caption = "\nBlack bars represent mean trust score per group.") +
   stat_summary(aes(colour = average_trust), geom = "hpline", width = 0.3, size = .6)
 
 
@@ -261,11 +245,6 @@ finalviz1 +
            strip.text.x = element_text(size = 12),
            legend.position = "none")
 
-v2 <- v1 %>%  group_by(agegroup.x, condition) %>%
-       summarise(n = n(),
-            average_trust = mean(total_trust))
-
-#changes for final viz 1 based on peer review- use OkabeIto scale and add bars for means in each group
 ```
 
 
