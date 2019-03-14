@@ -50,7 +50,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data-viz-4_files/bowser-1.9.3/bowser.min.js","data-viz-4_files/distill-2.2.21/template.v2.js","data-viz-4_files/figure-html5/unnamed-chunk-1-1.png","data-viz-4_files/figure-html5/unnamed-chunk-2-1.png","data-viz-4_files/jquery-1.11.3/jquery.min.js","data-viz-4_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data-viz-4_files/bowser-1.9.3/bowser.min.js","data-viz-4_files/distill-2.2.21/template.v2.js","data-viz-4_files/figure-html5/unnamed-chunk-1-1.png","data-viz-4_files/figure-html5/unnamed-chunk-2-1.png","data-viz-4_files/figure-html5/unnamed-chunk-3-1.gif","data-viz-4_files/jquery-1.11.3/jquery.min.js","data-viz-4_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1333,11 +1333,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="data-viz-4_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-<p>Stil trying to figure it out</p>
-<p>#decided not to highlight after all- going to try hops #bsr &lt;- bootstrapper(20, gender)</p>
-<p>finalviz4 &lt;- ggplot(df5, aes(exactage.x, total_trust)) + geom_point(alpha = 0.6) + geom_point(data = bsr) + facet_wrap(~gender) + geom_smooth(data = bsr, method = “lm”, fullrange = TRUE, se = FALSE) + theme_bw() + labs(title= “Children’s Age in Relation to Trust of the Reliable Informant”, subtitle = “Separated by Gender”, x = “Age in Months”, y = “Total Trust Score”) + transition_states(.draw, 1, 1) + enter_fade() + exit_fade()</p>
-<p>finalviz4 + theme(axis.title.x = element_text(size=14), axis.text.x= element_text(size=12), axis.title.y = element_text(size=14), axis.text.y= element_text(size=12), plot.title = element_text(size=15), plot.subtitle = element_text(size=14), strip.text.x = element_text(size = 12), panel.spacing.x = unit(1.5, “cm”))</p>
-<p>#trying to figure out HOPS ggplot(df5, aes(exactage.x, total_trust)) + geom_point(alpha = 0.6) + facet_wrap(~gender) + stat_smooth(data = bsr, geom = “line”, color = “#4375D3”, fullrange = TRUE) + #transition_states(bsr, #transition_length = 0.5, #state_length = 0.5) + theme_bw() + labs(title= “Children’s Age in Relation to Trust of the Reliable Informant”, subtitle = “Separated by Gender”, x = “Age in Months”, y = “Total Trust Score”)</p>
+<h2 id="this-is-the-final-version-of-the-visualization.">This is the final version of the visualization.</h2>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="data-viz-4_files/figure-html5/unnamed-chunk-3-1.gif" /><!-- --></p>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
