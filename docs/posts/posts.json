@@ -1,20 +1,5 @@
 [
   {
-    "path": "posts/2019-03-06-data-viz-1/",
-    "title": "Data Viz 1",
-    "description": "Examines young children's trust of reliable informant.",
-    "author": [
-      {
-        "name": "Karlena Ochoa",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-03-13",
-    "categories": [],
-    "preview": "posts/2019-03-06-data-viz-1/data-viz-1_files/figure-html5/viz 1-1.png",
-    "last_modified": "2019-03-13T14:29:27-07:00"
-  },
-  {
     "path": "posts/2019-03-11-data-viz-4/",
     "title": "Data Viz 4",
     "description": "Trust of reliable informant across age.",
@@ -28,6 +13,21 @@
     "categories": [],
     "preview": "posts/2019-03-11-data-viz-4/data-viz-4_files/figure-html5/unnamed-chunk-1-1.png",
     "last_modified": "2019-03-13T19:56:51-07:00"
+  },
+  {
+    "path": "posts/2019-03-06-data-viz-1/",
+    "title": "Data Viz 1",
+    "description": "Examines young children's trust of reliable informant.",
+    "author": [
+      {
+        "name": "Karlena Ochoa",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-03-08",
+    "categories": [],
+    "preview": "posts/2019-03-06-data-viz-1/data-viz-1_files/figure-html5/viz 1-1.png",
+    "last_modified": "2019-03-13T21:13:59-07:00"
   },
   {
     "path": "posts/2019-03-06-data-viz-2/",

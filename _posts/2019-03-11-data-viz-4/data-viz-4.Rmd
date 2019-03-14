@@ -118,22 +118,25 @@ plot7 + theme(axis.title.x = element_text(size= 4),
 
 ## This is the final version of the visualization. 
 
+I experimented with HOPS to show uncertainty in the plot. 
 
 ```{r}
 bsr <- bootstrapper(40, gender)
 
-finalviz4 <- ggplot(df5, aes(exactage.x, total_trust)) +
+finalviz4 <- ggplot(df5, aes(exactage.x, total_trust, color = gender)) +
+  geom_smooth(method = "lm", color = NA) +
   geom_point(alpha = 0.6) +
   geom_point(data = bsr) +
   facet_wrap(~gender) +
-  geom_smooth(data = bsr, method = "lm", fullrange = TRUE) +
+  geom_smooth(data = bsr, method = "lm", fullrange = TRUE, se = FALSE) +
   theme_bw() +
   labs(title = "Children's Age in Relation to Trust of the Reliable Informant",
        subtitle = "Separated by Gender", 
        x = "Age in Months",
        y = "Total Trust Score") +
   guides(color = "none") +
-  transition_states(.draw, 1, 1) + 
+  transition_states(.draw, .5, 1) + 
+  scale_color_OkabeIto() +
   enter_fade() + 
   exit_fade()
 
