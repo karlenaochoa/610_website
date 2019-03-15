@@ -57,7 +57,7 @@ data <- left_join(df2, df, by = "subid") %>%
 
 # Visualization 4: Aimed at the scientific community!
 
-message: children's ability to trust a reliable informant over an unreliable informant increases with age. 
+Message: children's ability to trust a reliable informant over an unreliable informant increases with age. 
 
 ## This is the first version of the visualization. 
 
