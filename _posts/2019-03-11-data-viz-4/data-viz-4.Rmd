@@ -89,7 +89,7 @@ plot7.v1 + theme(axis.title.x = element_text(size=14),
 
 ## This is the second version of the visualization. 
 
-I decided to facet by gender because sometimes there are gender differences in theory of mind tasks. Children's reasoning about trustworthiness requires theory of mind. I also increased the space between the panels for readability. I also decided to add color for gender and remove the legend. 
+I decided to facet by gender because sometimes there are gender differences in theory of mind tasks. Children's reasoning about trustworthiness requires theory of mind. I also increased the space between the panels for readability. I also added color for gender and removed the legend. 
 
 ```{r}
 
