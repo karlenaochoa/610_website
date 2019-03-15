@@ -1,18 +1,19 @@
 ---
 title: "Welcome to My Blog"
 description: |
-  Welcome to our new blog, My Blog. We hope you enjoy 
-  reading what we have to say!
+ 
 author:
   - name: Karlena Ochoa
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
-date: 03-06-2019
+    url: https://github.com/karlenaochoa/610_website
+    affiliation: University of Oregon 
+    affiliation_url: https://psychology.uoregon.edu/
+date: 03-14-2019
 output:
   distill::distill_article:
     self_contained: false
 ---
+
+Welcome to my data visualization blog. This blog is intended to showcase some of skills learned this term in *Communicating and transforming data* taught by Daniel Anderson. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)

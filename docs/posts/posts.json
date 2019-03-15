@@ -1,5 +1,20 @@
 [
   {
+    "path": "posts/welcome/",
+    "title": "Welcome to My Blog",
+    "description": {},
+    "author": [
+      {
+        "name": "Karlena Ochoa",
+        "url": "https://github.com/karlenaochoa/610_website"
+      }
+    ],
+    "date": "2019-03-14",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-03-14T17:38:41-07:00"
+  },
+  {
     "path": "posts/2019-03-06-data-viz-1/",
     "title": "Data Viz 1",
     "description": "Examines young children's trust of reliable informant.",
@@ -30,6 +45,21 @@
     "last_modified": "2019-03-13T21:27:15-07:00"
   },
   {
+    "path": "posts/2019-03-06-data-viz-2/",
+    "title": "Data Viz 2",
+    "description": "Children's performance in the trust task when they received first-hand information.",
+    "author": [
+      {
+        "name": "Karlena Ochoa",
+        "url": "https://github.com/karlenaochoa/610_website"
+      }
+    ],
+    "date": "2019-03-12",
+    "categories": [],
+    "preview": "posts/2019-03-06-data-viz-2/data-viz-2_files/figure-html5/viz 2-1.png",
+    "last_modified": "2019-03-14T17:40:09-07:00"
+  },
+  {
     "path": "posts/2019-03-11-data-viz-4/",
     "title": "Data Viz 4",
     "description": "Trust of reliable informant across age.",
@@ -43,35 +73,5 @@
     "categories": [],
     "preview": "posts/2019-03-11-data-viz-4/data-viz-4_files/figure-html5/unnamed-chunk-1-1.png",
     "last_modified": "2019-03-13T19:56:51-07:00"
-  },
-  {
-    "path": "posts/2019-03-06-data-viz-2/",
-    "title": "Data Viz 2",
-    "description": "Children's performance in the trust task when they received first-hand information.",
-    "author": [
-      {
-        "name": "Karlena Ochoa",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-03-06",
-    "categories": [],
-    "preview": "posts/2019-03-06-data-viz-2/data-viz-2_files/figure-html5/viz 2-1.png",
-    "last_modified": "2019-03-13T14:26:37-07:00"
-  },
-  {
-    "path": "posts/welcome/",
-    "title": "Welcome to My Blog",
-    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
-    "author": [
-      {
-        "name": "Karlena Ochoa",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-03-06",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-03-06T11:05:54-08:00"
   }
 ]

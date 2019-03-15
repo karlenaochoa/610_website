@@ -4,7 +4,7 @@ description: |
   Children's performance in the trust task when they received first-hand information.
 author:
   - name: Karlena Ochoa 
-    url: https://example.com/norajones
+    url: https://github.com/karlenaochoa/610_website
 date: 03-12-2019
 output:
   distill::distill_article:
