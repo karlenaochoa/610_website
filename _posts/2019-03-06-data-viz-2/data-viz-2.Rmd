@@ -136,8 +136,8 @@ finalviz2 <- ggplot(df3, aes(trainingtotal, total_trust, colour = as.factor(ageg
   labs(title= "Children's Performance on Training Trials \nRelated to Total Trust of Reliable Informant", 
        x = "Training Total",
        y = "Trust Score" ) +
-  annotate("text", label = "3-year-olds", x = 2.8, y = 3.0, size = 4.5) +
-  annotate("text", label = "4-year-olds", x = 2.8, y = 5.0, size = 4.5) +
+  annotate("text", label = "3-year-olds", x = 2.5, y = 3.0, size = 4.5) +
+  annotate("text", label = "4-year-olds", x = 2.5, y = 4.8, size = 4.5) +
   guides(color = "none")
 
 
