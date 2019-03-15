@@ -4,7 +4,7 @@ description: |
    Relationship between parent report of executive function and children's perfomance.
 author:
   - name: Karlena Ochoa
-    url: https://example.com/norajones
+    url: https://github.com/karlenaochoa/610_website
 date: 03-11-2019
 output:
   distill::distill_article:

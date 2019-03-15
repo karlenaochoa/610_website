@@ -30,21 +30,6 @@
     "last_modified": "2019-03-13T21:29:32-07:00"
   },
   {
-    "path": "posts/2019-03-06-data-viz-3/",
-    "title": "Data Viz 3",
-    "description": "Relationship between parent report of executive function and children's perfomance.",
-    "author": [
-      {
-        "name": "Karlena Ochoa",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-03-12",
-    "categories": [],
-    "preview": "posts/2019-03-06-data-viz-3/data-viz-3_files/figure-html5/unnamed-chunk-1-1.png",
-    "last_modified": "2019-03-13T21:27:15-07:00"
-  },
-  {
     "path": "posts/2019-03-06-data-viz-2/",
     "title": "Data Viz 2",
     "description": "Children's performance in the trust task when they received first-hand information.",
@@ -58,6 +43,21 @@
     "categories": [],
     "preview": "posts/2019-03-06-data-viz-2/data-viz-2_files/figure-html5/viz 2-1.png",
     "last_modified": "2019-03-14T17:40:09-07:00"
+  },
+  {
+    "path": "posts/2019-03-06-data-viz-3/",
+    "title": "Data Viz 3",
+    "description": "Relationship between parent report of executive function and children's perfomance.",
+    "author": [
+      {
+        "name": "Karlena Ochoa",
+        "url": "https://github.com/karlenaochoa/610_website"
+      }
+    ],
+    "date": "2019-03-11",
+    "categories": [],
+    "preview": "posts/2019-03-06-data-viz-3/data-viz-3_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2019-03-14T17:44:29-07:00"
   },
   {
     "path": "posts/2019-03-11-data-viz-4/",
